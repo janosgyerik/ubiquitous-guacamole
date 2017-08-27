@@ -13,7 +13,7 @@ public class Actions {
       }
 
       @Override
-      public void apply(CounterState counterState) {
+      public void apply(Counter counter) {
         // do nothing
       }
     };
@@ -27,7 +27,7 @@ public class Actions {
       }
 
       @Override
-      public void apply(CounterState counter) {
+      public void apply(Counter counter) {
         counter.setValue(counter.getValue() + 1);
       }
     };

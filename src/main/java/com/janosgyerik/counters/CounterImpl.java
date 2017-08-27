@@ -1,6 +1,6 @@
 package com.janosgyerik.counters;
 
-public class CounterStateImpl implements CounterState {
+public class CounterImpl implements Counter {
 
   private int value;
 

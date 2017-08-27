@@ -1,6 +1,6 @@
 package com.janosgyerik.counters;
 
-public interface CounterState {
+public interface Counter {
   CounterDescriptor descriptor();
 
   int getValue();

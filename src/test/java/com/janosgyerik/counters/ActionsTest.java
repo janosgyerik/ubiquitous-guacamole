@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ActionsTest {
   @Test
   public void inc_should_increment_counter() {
-    CounterState counter = new CounterStateImpl();
+    Counter counter = new CounterImpl();
     counter.setValue(0);
 
     Action action = inc();
@@ -26,7 +26,7 @@ public class ActionsTest {
 
   @Test
   public void none_should_not_change_counter_value() {
-    CounterState counter = new CounterStateImpl();
+    Counter counter = new CounterImpl();
     int origValue = counter.getValue();
 
     Action action = none();
