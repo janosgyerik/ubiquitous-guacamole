@@ -32,4 +32,18 @@ public class Actions {
       }
     };
   }
+
+  public static Action reset() {
+    return new Action() {
+      @Override
+      public String name() {
+        return "reset";
+      }
+
+      @Override
+      public void apply(Counter counter) {
+        counter.setValue(counter.descriptor().start());
+      }
+    };
+  }
 }

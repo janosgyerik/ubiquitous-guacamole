@@ -6,9 +6,13 @@ import static com.janosgyerik.counters.Actions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ActionsTest {
+  private Counter newCounter() {
+    return CounterFactory.builder("my counter", Periods.daily()).build();
+  }
+
   @Test
   public void inc_should_increment_counter() {
-    Counter counter = new CounterImpl();
+    Counter counter = newCounter();
     counter.setValue(0);
 
     Action action = inc();
@@ -26,7 +30,7 @@ public class ActionsTest {
 
   @Test
   public void none_should_not_change_counter_value() {
-    Counter counter = new CounterImpl();
+    Counter counter = newCounter();
     int origValue = counter.getValue();
 
     Action action = none();
@@ -38,4 +42,21 @@ public class ActionsTest {
     assertThat(counter.getValue()).isEqualTo(origValue);
   }
 
+  @Test
+  public void reset_should_reset_to_start_value() {
+    int start = 10;
+    Counter counter = CounterFactory.builder("my counter", Periods.daily())
+        .start(start)
+        .build();
+
+    Action action = inc();
+    action.apply(counter);
+    action.apply(counter);
+    action.apply(counter);
+    assertThat(counter.getValue()).isEqualTo(start + 3);
+
+    Action reset = reset();
+    reset.apply(counter);
+    assertThat(counter.getValue()).isEqualTo(start);
+  }
 }

@@ -1,5 +1,8 @@
 package com.janosgyerik.counters;
 
+/**
+ * Use CounterFactory.builder to create a Counter with its CounterDescriptor.
+ */
 public class CounterDescriptor {
 
   private final String name;
@@ -8,12 +11,12 @@ public class CounterDescriptor {
   private final Action manualAction;
   private final Action timeoutAction;
 
-  private CounterDescriptor(Builder builder) {
-    this.name = builder.name;
-    this.period = builder.period;
-    this.start = builder.start;
-    this.manualAction = builder.manualAction;
-    this.timeoutAction = builder.timeoutAction;
+  CounterDescriptor(String name, Period period, int start, Action manualAction, Action timeoutAction) {
+    this.name = name;
+    this.period = period;
+    this.start = start;
+    this.manualAction = manualAction;
+    this.timeoutAction = timeoutAction;
   }
 
   public String name() {
@@ -36,20 +39,4 @@ public class CounterDescriptor {
     return timeoutAction;
   }
 
-  public static Builder builder(String name, Period period) {
-    return new Builder(name, period);
-  }
-
-  private static class Builder {
-    private final String name;
-    private final Period period;
-    private int start = 0;
-    private Action manualAction = Actions.none();
-    private Action timeoutAction = Actions.none();
-
-    private Builder(String name, Period period) {
-      this.name = name;
-      this.period = period;
-    }
-  }
 }
