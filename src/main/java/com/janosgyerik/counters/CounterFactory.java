@@ -28,5 +28,15 @@ public class CounterFactory {
       this.start = start;
       return this;
     }
+
+    Builder manualAction(Action action) {
+      this.manualAction = action;
+      return this;
+    }
+
+    Builder timeoutAction(Action action) {
+      this.timeoutAction = action;
+      return this;
+    }
   }
 }
