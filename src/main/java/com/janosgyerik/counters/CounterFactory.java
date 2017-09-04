@@ -6,7 +6,7 @@ public class CounterFactory {
     return new Builder(name, period);
   }
 
-  static class Builder {
+  public static class Builder {
     private final String name;
     private final Period period;
 
@@ -29,12 +29,12 @@ public class CounterFactory {
       return this;
     }
 
-    Builder manualAction(Action action) {
+    public Builder manualAction(Action action) {
       this.manualAction = action;
       return this;
     }
 
-    Builder timeoutAction(Action action) {
+    public Builder timeoutAction(Action action) {
       this.timeoutAction = action;
       return this;
     }
