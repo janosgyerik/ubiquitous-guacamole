@@ -7,13 +7,13 @@ public class CounterFactory {
   }
 
   public static class Builder {
-    private final String name;
-    private final Period period;
+    final String name;
+    final Period period;
 
-    private int start = 0;
-    private Action manualAction = Actions.none();
-    private Action timeoutAction = Actions.none();
-    private Action periodicAction = Actions.none();
+    int start = 0;
+    Action manualAction = Actions.none();
+    Action timeoutAction = Actions.none();
+    Action periodicAction = Actions.none();
 
     private Builder(String name, Period period) {
       this.name = name;
@@ -21,7 +21,7 @@ public class CounterFactory {
     }
 
     public Counter build() {
-      CounterDescriptor descriptor = new CounterDescriptor(name, period, start, manualAction, timeoutAction, periodicAction);
+      CounterDescriptor descriptor = new CounterDescriptor(this);
       return new CounterImpl(descriptor, start);
     }
 

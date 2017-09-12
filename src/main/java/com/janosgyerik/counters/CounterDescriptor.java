@@ -15,13 +15,13 @@ public class CounterDescriptor {
   private final Action timeoutAction;
   private final Action periodicAction;
 
-  CounterDescriptor(String name, Period period, int start, Action manualAction, Action timeoutAction, Action periodicAction) {
-    this.name = name;
-    this.period = period;
-    this.start = start;
-    this.manualAction = manualAction;
-    this.timeoutAction = timeoutAction;
-    this.periodicAction = periodicAction;
+  CounterDescriptor(CounterFactory.Builder builder) {
+    this.name = builder.name;
+    this.period = builder.period;
+    this.start = builder.start;
+    this.manualAction = builder.manualAction;
+    this.timeoutAction = builder.timeoutAction;
+    this.periodicAction = builder.periodicAction;
   }
 
   public String name() {
