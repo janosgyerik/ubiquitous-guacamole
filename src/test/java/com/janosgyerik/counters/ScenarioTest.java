@@ -46,6 +46,8 @@ public class ScenarioTest {
 
     CounterTester tester = new CounterTester(counter);
 
+    // TODO something's smelly: this should not be necessary
+    tester.performPeriodic();
     assertThat(tester.getValue()).isEqualTo(0);
 
     tester.performManual();
@@ -54,8 +56,8 @@ public class ScenarioTest {
     tester.performManual();
     assertThat(tester.getValue()).isEqualTo(2);
 
-//    tester.nextDay();
-//    assertThat(tester.getValue()).isEqualTo(2);
+    tester.nextDay();
+    assertThat(tester.getValue()).isEqualTo(2);
 
     tester.nextWeek();
     assertThat(tester.getValue()).isEqualTo(0);

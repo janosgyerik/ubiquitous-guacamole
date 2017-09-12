@@ -31,15 +31,20 @@ public class CounterTester {
     actionManager.performTimeout(user, counter, date);
   }
 
+  public void performPeriodic() {
+    actionManager.performPeriodic(user, counter, date);
+  }
+
   public void nextDay() {
     actionManager.performTimeout(user, counter, date);
-    actionManager.performPeriodic(user, counter, date);
     date.setTime(date.toInstant().plus(1, ChronoUnit.DAYS).toEpochMilli());
+    actionManager.performPeriodic(user, counter, date);
   }
 
   public void nextWeek() {
     actionManager.performTimeout(user, counter, date);
-    actionManager.performPeriodic(user, counter, date);
     date.setTime(date.toInstant().plus(7, ChronoUnit.DAYS).toEpochMilli());
+    // TODO why does this have to be after? smelly, need to rethink this
+    actionManager.performPeriodic(user, counter, date);
   }
 }
