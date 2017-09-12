@@ -26,4 +26,9 @@ public class ActionManagerImpl implements ActionManager {
     }
     return false;
   }
+
+  @Override
+  public void performPeriodic(User user, Counter counter, Date date) {
+    // TODO
+  }
 }
