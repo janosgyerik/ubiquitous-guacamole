@@ -12,5 +12,7 @@ public interface EventRepo {
 
   void addTimeout(User user, Counter counter, Date date, int valueBefore);
 
+  void addPeriodic(User user, Counter counter, Date date, int valueBefore);
+
   int size();
 }

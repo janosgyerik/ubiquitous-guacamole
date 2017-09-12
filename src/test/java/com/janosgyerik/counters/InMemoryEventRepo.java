@@ -28,6 +28,11 @@ public class InMemoryEventRepo implements EventRepo {
   }
 
   @Override
+  public void addPeriodic(User user, Counter counter, Date date, int valueBefore) {
+    events.add(key(user, counter, date));
+  }
+
+  @Override
   public int size() {
     return events.size();
   }

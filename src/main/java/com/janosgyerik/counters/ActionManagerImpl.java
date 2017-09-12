@@ -29,6 +29,8 @@ public class ActionManagerImpl implements ActionManager {
 
   @Override
   public void performPeriodic(User user, Counter counter, Date date) {
-    // TODO
+    int valueBefore = counter.getValue();
+    counter.descriptor().periodicAction().apply(counter);
+    events.addPeriodic(user, counter, date, valueBefore);
   }
 }

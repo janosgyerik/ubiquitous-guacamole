@@ -1,8 +1,11 @@
 package com.janosgyerik.counters;
 
+import javax.annotation.concurrent.Immutable;
+
 /**
  * Use CounterFactory.builder to create a Counter with its CounterDescriptor.
  */
+@Immutable
 public class CounterDescriptor {
 
   private final String name;
@@ -10,13 +13,15 @@ public class CounterDescriptor {
   private final int start;
   private final Action manualAction;
   private final Action timeoutAction;
+  private final Action periodicAction;
 
-  CounterDescriptor(String name, Period period, int start, Action manualAction, Action timeoutAction) {
+  CounterDescriptor(String name, Period period, int start, Action manualAction, Action timeoutAction, Action periodicAction) {
     this.name = name;
     this.period = period;
     this.start = start;
     this.manualAction = manualAction;
     this.timeoutAction = timeoutAction;
+    this.periodicAction = periodicAction;
   }
 
   public String name() {
@@ -37,6 +42,10 @@ public class CounterDescriptor {
 
   public Action timeoutAction() {
     return timeoutAction;
+  }
+
+  public Action periodicAction() {
+    return periodicAction;
   }
 
 }
