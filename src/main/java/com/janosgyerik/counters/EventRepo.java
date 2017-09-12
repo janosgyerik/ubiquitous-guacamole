@@ -4,15 +4,11 @@ import java.util.Date;
 
 public interface EventRepo {
   /**
-   * Check if an event was already logged for the user's counter, period, date.
+   * Check if an event was already logged for the user's counter, period, action type.
    */
-  boolean exists(User user, Counter counter, Date date);
+  boolean exists(User user, String counterId, String periodId, ActionType... actionTypes);
 
-  void addManual(User user, Counter counter, Date date, int valueBefore);
-
-  void addTimeout(User user, Counter counter, Date date, int valueBefore);
-
-  void addPeriodic(User user, Counter counter, Date date, int valueBefore);
+  void add(User user, String counterId, String periodId, ActionType actionType, int valueBefore);
 
   int size();
 }

@@ -9,19 +9,29 @@ public class ActionManagerImpl implements ActionManager {
     this.events = eventRepo;
   }
 
+  private String counterId(Counter counter) {
+    return counter.descriptor().name();
+  }
+
+  private String periodId(User user, Counter counter, Date date) {
+    return counter.descriptor().period().computeId(date, user.utcOffset());
+  }
+
   @Override
   public void performManual(User user, Counter counter, Date date) {
     int valueBefore = counter.getValue();
     counter.descriptor().manualAction().apply(counter);
-    events.addManual(user, counter, date, valueBefore);
+    events.add(user, counterId(counter), periodId(user, counter, date), ActionType.MANUAL, valueBefore);
   }
 
   @Override
   public boolean performTimeout(User user, Counter counter, Date date) {
-    if (!events.exists(user, counter, date)) {
+    String counterId = counter.descriptor().name();
+    String periodId = counter.descriptor().period().computeId(date, user.utcOffset());
+    if (!events.exists(user, counterId, periodId, ActionType.MANUAL, ActionType.TIMEOUT)) {
       int valueBefore = counter.getValue();
       counter.descriptor().timeoutAction().apply(counter);
-      events.addTimeout(user, counter, date, valueBefore);
+      events.add(user, counterId(counter), periodId(user, counter, date), ActionType.TIMEOUT, valueBefore);
       return true;
     }
     return false;
@@ -29,8 +39,12 @@ public class ActionManagerImpl implements ActionManager {
 
   @Override
   public void performPeriodic(User user, Counter counter, Date date) {
-    int valueBefore = counter.getValue();
-    counter.descriptor().periodicAction().apply(counter);
-    events.addPeriodic(user, counter, date, valueBefore);
+    String counterId = counter.descriptor().name();
+    String periodId = counter.descriptor().period().computeId(date, user.utcOffset());
+    if (!events.exists(user, counterId, periodId, ActionType.PERIODIC)) {
+      int valueBefore = counter.getValue();
+      counter.descriptor().periodicAction().apply(counter);
+      events.add(user, counterId(counter), periodId(user, counter, date), ActionType.PERIODIC, valueBefore);
+    }
   }
 }

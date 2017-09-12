@@ -54,6 +54,9 @@ public class ScenarioTest {
     tester.performManual();
     assertThat(tester.getValue()).isEqualTo(2);
 
+//    tester.nextDay();
+//    assertThat(tester.getValue()).isEqualTo(2);
+
     tester.nextWeek();
     assertThat(tester.getValue()).isEqualTo(0);
   }

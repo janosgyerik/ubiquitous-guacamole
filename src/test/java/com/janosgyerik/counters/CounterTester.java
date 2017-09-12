@@ -12,6 +12,7 @@ public class CounterTester {
   private final User user = mock(User.class);
   private final Counter counter;
 
+  // TODO should set to the start of a week, otherwise weekly actions will not work reliably
   private Date date = new Date();
 
   public CounterTester(Counter counter) {

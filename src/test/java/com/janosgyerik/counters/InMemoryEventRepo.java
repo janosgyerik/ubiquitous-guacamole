@@ -1,5 +1,6 @@
 package com.janosgyerik.counters;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,24 +13,18 @@ public class InMemoryEventRepo implements EventRepo {
     return String.join(":", user.id(), counter.descriptor().name(), periodId);
   }
 
-  @Override
-  public boolean exists(User user, Counter counter, Date date) {
-    return events.contains(key(user, counter, date));
+  private String key(User user, String counterId, String periodId, ActionType actionType) {
+    return String.join(":", user.id(), counterId, periodId, actionType.toString());
   }
 
   @Override
-  public void addManual(User user, Counter counter, Date date, int valueBefore) {
-    events.add(key(user, counter, date));
+  public boolean exists(User user, String counterId, String periodId, ActionType... actionTypes) {
+    return Arrays.stream(actionTypes).anyMatch(a -> events.contains(key(user, counterId, periodId, a)));
   }
 
   @Override
-  public void addTimeout(User user, Counter counter, Date date, int valueBefore) {
-    events.add(key(user, counter, date));
-  }
-
-  @Override
-  public void addPeriodic(User user, Counter counter, Date date, int valueBefore) {
-    events.add(key(user, counter, date));
+  public void add(User user, String counterId, String periodId, ActionType actionType, int valueBefore) {
+    events.add(key(user, counterId, periodId, actionType));
   }
 
   @Override
