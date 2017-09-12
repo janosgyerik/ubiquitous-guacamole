@@ -34,4 +34,9 @@ public class CounterTester {
     actionManager.performTimeout(user, counter, date);
     date.setTime(date.toInstant().plus(1, ChronoUnit.DAYS).toEpochMilli());
   }
+
+  public void nextWeek() {
+    actionManager.performTimeout(user, counter, date);
+    date.setTime(date.toInstant().plus(7, ChronoUnit.DAYS).toEpochMilli());
+  }
 }

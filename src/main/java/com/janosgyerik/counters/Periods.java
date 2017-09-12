@@ -18,6 +18,13 @@ public class Periods {
     };
   }
 
+  public static Period weekly() {
+    return (date, utcOffset) -> {
+      OffsetDateTime time = Instant.ofEpochMilli(date.getTime()).atOffset(ZoneOffset.ofHours(utcOffset));
+      return time.getYear() + "-" + (time.getDayOfYear() / 7);
+    };
+  }
+
   public static String periodId(User user, Period period, Date date) {
     return period.computeId(date, user.utcOffset());
   }
