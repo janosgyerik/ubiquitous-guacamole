@@ -41,6 +41,18 @@ public class PeriodsTest {
     assertThat(computeId(weekly, date.plusDays(daysToNextWeek + 7), utcOffset)).isEqualTo(2);
   }
 
+  @Test
+  public void nday_period_id_should_be_increasing() {
+    LocalDateTime date = LocalDateTime.now();
+    int utcOffset = 1;
+    int days = 3;
+    Period ndays = Periods.ndays(days);
+    assertThat(computeId(ndays, date, utcOffset)).isEqualTo(0);
+    assertThat(computeId(ndays, date.plusDays(days - 1), utcOffset)).isEqualTo(0);
+    assertThat(computeId(ndays, date.plusDays(days), utcOffset)).isEqualTo(1);
+    assertThat(computeId(ndays, date.plusDays(days * 5), utcOffset)).isEqualTo(5);
+  }
+
   private long computeId(Period period, LocalDateTime date, int utcOffset) {
     return period.computeId(date, utcOffset);
   }

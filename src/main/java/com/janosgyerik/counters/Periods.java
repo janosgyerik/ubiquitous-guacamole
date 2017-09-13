@@ -34,4 +34,9 @@ public class Periods {
     LocalDateTime start = weekStart(LocalDateTime.now());
     return (date, utcOffset) -> days(start, dayStart(date)) / 7;
   }
+
+  public static Period ndays(int days) {
+    LocalDateTime start = dayStart(LocalDateTime.now());
+    return (date, utcOffset) -> days(start, dayStart(date)) / days;
+  }
 }
