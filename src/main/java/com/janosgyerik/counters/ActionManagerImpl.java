@@ -13,7 +13,7 @@ public class ActionManagerImpl implements ActionManager {
     return counter.descriptor().name();
   }
 
-  private int periodId(User user, Counter counter, Date date) {
+  private long periodId(User user, Counter counter, Date date) {
     return counter.descriptor().period().computeId(date, user.utcOffset());
   }
 
@@ -27,7 +27,7 @@ public class ActionManagerImpl implements ActionManager {
   @Override
   public boolean performTimeout(User user, Counter counter, Date date) {
     String counterId = counter.descriptor().name();
-    int periodId = counter.descriptor().period().computeId(date, user.utcOffset());
+    long periodId = counter.descriptor().period().computeId(date, user.utcOffset());
     if (!events.exists(user, counterId, periodId, ActionType.MANUAL, ActionType.TIMEOUT)) {
       int valueBefore = counter.getValue();
       counter.descriptor().timeoutAction().apply(counter);
@@ -40,7 +40,7 @@ public class ActionManagerImpl implements ActionManager {
   @Override
   public void performPeriodic(User user, Counter counter, Date date) {
     String counterId = counter.descriptor().name();
-    int periodId = counter.descriptor().period().computeId(date, user.utcOffset());
+    long periodId = counter.descriptor().period().computeId(date, user.utcOffset());
     if (!events.exists(user, counterId, periodId, ActionType.PERIODIC)) {
       int valueBefore = counter.getValue();
       counter.descriptor().periodicAction().apply(counter);
