@@ -39,4 +39,8 @@ public class Periods {
     LocalDateTime start = dayStart(LocalDateTime.now());
     return (date, utcOffset) -> days(start, dayStart(date)) / days;
   }
+
+  public static Period none() {
+    return (date, utcOffset) -> 0;
+  }
 }

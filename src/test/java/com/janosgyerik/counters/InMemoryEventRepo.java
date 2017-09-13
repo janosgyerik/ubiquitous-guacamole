@@ -1,17 +1,11 @@
 package com.janosgyerik.counters;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public class InMemoryEventRepo implements EventRepo {
   private final Set<String> events = new HashSet<>();
-
-  private String key(User user, Counter counter, LocalDateTime date) {
-    long periodId = counter.descriptor().period().computeId(date, user.utcOffset());
-    return String.join(":", user.id(), counter.descriptor().name(), Long.toString(periodId));
-  }
 
   private String key(User user, String counterId, long periodId, ActionType actionType) {
     return String.join(":", user.id(), counterId, Long.toString(periodId), actionType.toString());

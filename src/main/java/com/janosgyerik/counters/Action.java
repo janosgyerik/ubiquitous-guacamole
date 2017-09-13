@@ -4,4 +4,6 @@ public interface Action {
   String name();
 
   void apply(Counter counter);
+
+  Period period();
 }

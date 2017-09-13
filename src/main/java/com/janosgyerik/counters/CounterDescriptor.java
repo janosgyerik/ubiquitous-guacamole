@@ -9,7 +9,6 @@ import javax.annotation.concurrent.Immutable;
 public class CounterDescriptor {
 
   private final String name;
-  private final Period period;
   private final int start;
   private final Action manualAction;
   private final Action timeoutAction;
@@ -17,7 +16,6 @@ public class CounterDescriptor {
 
   CounterDescriptor(CounterFactory.Builder builder) {
     this.name = builder.name;
-    this.period = builder.period;
     this.start = builder.start;
     this.manualAction = builder.manualAction;
     this.timeoutAction = builder.timeoutAction;
@@ -26,10 +24,6 @@ public class CounterDescriptor {
 
   public String name() {
     return name;
-  }
-
-  public Period period() {
-    return period;
   }
 
   public int start() {

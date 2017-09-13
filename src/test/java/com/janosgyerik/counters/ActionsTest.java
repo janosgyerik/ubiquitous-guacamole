@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ActionsTest {
   private Counter newCounter() {
-    return CounterFactory.builder("my counter", Periods.daily()).build();
+    return CounterFactory.builder("my counter").build();
   }
 
   @Test
@@ -45,7 +45,7 @@ public class ActionsTest {
   @Test
   public void reset_should_reset_to_start_value() {
     int start = 10;
-    Counter counter = CounterFactory.builder("my counter", Periods.daily())
+    Counter counter = CounterFactory.builder("my counter")
         .start(start)
         .build();
 

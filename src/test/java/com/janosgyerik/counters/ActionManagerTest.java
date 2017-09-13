@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ActionManagerTest {
 
   private final User user = UserFactory.create();
-  private final CounterFactory.Builder builder = CounterFactory.builder("dummy", Periods.daily());
+  private final CounterFactory.Builder builder = CounterFactory.builder("dummy");
 
   private EventRepo eventRepo;
   private ActionManager actionManager;

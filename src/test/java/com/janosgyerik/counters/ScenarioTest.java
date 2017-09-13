@@ -7,9 +7,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ScenarioTest {
   @Test
   public void daily_count_up_with_manual_reset() {
-    Counter counter = CounterFactory.builder("dummy", Periods.daily())
-        .manualAction(Actions.reset())
-        .timeoutAction(Actions.inc())
+    Counter counter = CounterFactory.builder("dummy")
+        .manualAction(Actions.reset(Periods.daily()))
+        .timeoutAction(Actions.inc(Periods.daily()))
         .build();
 
     CounterTester tester = new CounterTester(counter);
@@ -39,9 +39,9 @@ public class ScenarioTest {
 
   @Test
   public void manual_count_up_with_weekly_reset() {
-    Counter counter = CounterFactory.builder("dummy", Periods.weekly())
+    Counter counter = CounterFactory.builder("dummy")
         .manualAction(Actions.inc())
-        .periodicAction(Actions.reset())
+        .periodicAction(Actions.reset(Periods.weekly()))
         .build();
 
     CounterTester tester = new CounterTester(counter);

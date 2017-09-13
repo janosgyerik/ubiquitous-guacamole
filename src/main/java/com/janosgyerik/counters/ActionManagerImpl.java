@@ -13,36 +13,36 @@ public class ActionManagerImpl implements ActionManager {
     return counter.descriptor().name();
   }
 
-  private long periodId(User user, Counter counter, LocalDateTime date) {
-    return counter.descriptor().period().computeId(date, user.utcOffset());
+  private long periodId(User user, Period period, LocalDateTime date) {
+    return period.computeId(date, user.utcOffset());
   }
 
   @Override
   public void performManual(User user, Counter counter, LocalDateTime date) {
     int valueBefore = counter.getValue();
     counter.descriptor().manualAction().apply(counter);
-    events.add(user, counterId(counter), periodId(user, counter, date), ActionType.MANUAL, valueBefore);
+    events.add(user, counterId(counter), periodId(user, counter.descriptor().manualAction().period(), date), ActionType.MANUAL, valueBefore);
   }
 
   @Override
   public void performTimeout(User user, Counter counter, LocalDateTime date) {
     String counterId = counter.descriptor().name();
-    long periodId = counter.descriptor().period().computeId(date, user.utcOffset());
+    long periodId = counter.descriptor().timeoutAction().period().computeId(date, user.utcOffset());
     if (!events.exists(user, counterId, periodId, ActionType.MANUAL, ActionType.TIMEOUT)) {
       int valueBefore = counter.getValue();
       counter.descriptor().timeoutAction().apply(counter);
-      events.add(user, counterId(counter), periodId(user, counter, date), ActionType.TIMEOUT, valueBefore);
+      events.add(user, counterId(counter), periodId(user, counter.descriptor().timeoutAction().period(), date), ActionType.TIMEOUT, valueBefore);
     }
   }
 
   @Override
   public void performPeriodic(User user, Counter counter, LocalDateTime date) {
     String counterId = counter.descriptor().name();
-    long periodId = counter.descriptor().period().computeId(date, user.utcOffset());
+    long periodId = counter.descriptor().periodicAction().period().computeId(date, user.utcOffset());
     if (!events.exists(user, counterId, periodId, ActionType.PERIODIC)) {
       int valueBefore = counter.getValue();
       counter.descriptor().periodicAction().apply(counter);
-      events.add(user, counterId(counter), periodId(user, counter, date), ActionType.PERIODIC, valueBefore);
+      events.add(user, counterId(counter), periodId(user, counter.descriptor().periodicAction().period(), date), ActionType.PERIODIC, valueBefore);
     }
   }
 }
