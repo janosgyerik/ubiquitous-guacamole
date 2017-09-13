@@ -16,7 +16,7 @@ public class PeriodsTest {
     LocalDateTime localDateTime = LocalDateTime.of(2017, 8, 27, 21, 30);
     int utcOffset = 1;
     Date date = date(utcOffset, localDateTime);
-    assertThat(daily.computeId(date, utcOffset)).isEqualTo("2017-239");
+    assertThat(daily.computeId(date, utcOffset)).isEqualTo(201939);
   }
 
   private Date date(int utcOffset, LocalDateTime localDateTime) {
