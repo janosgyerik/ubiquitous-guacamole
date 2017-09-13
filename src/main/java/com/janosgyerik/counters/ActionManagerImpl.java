@@ -1,6 +1,6 @@
 package com.janosgyerik.counters;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class ActionManagerImpl implements ActionManager {
   private final EventRepo events;
@@ -13,19 +13,19 @@ public class ActionManagerImpl implements ActionManager {
     return counter.descriptor().name();
   }
 
-  private long periodId(User user, Counter counter, Date date) {
+  private long periodId(User user, Counter counter, LocalDateTime date) {
     return counter.descriptor().period().computeId(date, user.utcOffset());
   }
 
   @Override
-  public void performManual(User user, Counter counter, Date date) {
+  public void performManual(User user, Counter counter, LocalDateTime date) {
     int valueBefore = counter.getValue();
     counter.descriptor().manualAction().apply(counter);
     events.add(user, counterId(counter), periodId(user, counter, date), ActionType.MANUAL, valueBefore);
   }
 
   @Override
-  public boolean performTimeout(User user, Counter counter, Date date) {
+  public boolean performTimeout(User user, Counter counter, LocalDateTime date) {
     String counterId = counter.descriptor().name();
     long periodId = counter.descriptor().period().computeId(date, user.utcOffset());
     if (!events.exists(user, counterId, periodId, ActionType.MANUAL, ActionType.TIMEOUT)) {
@@ -38,7 +38,7 @@ public class ActionManagerImpl implements ActionManager {
   }
 
   @Override
-  public void performPeriodic(User user, Counter counter, Date date) {
+  public void performPeriodic(User user, Counter counter, LocalDateTime date) {
     String counterId = counter.descriptor().name();
     long periodId = counter.descriptor().period().computeId(date, user.utcOffset());
     if (!events.exists(user, counterId, periodId, ActionType.PERIODIC)) {

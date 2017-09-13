@@ -1,7 +1,7 @@
 package com.janosgyerik.counters;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public interface Period {
-  long computeId(Date date, int utcOffset);
+  long computeId(LocalDateTime date, int utcOffset);
 }

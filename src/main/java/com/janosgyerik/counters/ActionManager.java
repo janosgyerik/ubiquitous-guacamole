@@ -1,5 +1,6 @@
 package com.janosgyerik.counters;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ public interface ActionManager {
   /**
    * Perform the manual action on the counter of a user.
    */
-  void performManual(User user, Counter counter, Date date);
+  void performManual(User user, Counter counter, LocalDateTime date);
 
   /**
    * Perform the timeout action on the counter of a user,
@@ -19,13 +20,12 @@ public interface ActionManager {
    *
    * @return true if the action was performed
    */
-  boolean performTimeout(User user, Counter counter, Date date);
+  // TODO drop the return value
+  boolean performTimeout(User user, Counter counter, LocalDateTime date);
 
   /**
    * Perform the periodic action on the counter of a user.
    * The period action must be performed only once per period.
-   *
-   * @return true if the action was performed
    */
-  void performPeriodic(User user, Counter counter, Date date);
+  void performPeriodic(User user, Counter counter, LocalDateTime date);
 }

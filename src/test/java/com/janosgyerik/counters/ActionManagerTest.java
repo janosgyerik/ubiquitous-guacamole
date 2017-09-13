@@ -1,6 +1,6 @@
 package com.janosgyerik.counters;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +27,7 @@ public class ActionManagerTest {
         .timeoutAction(Actions.reset())
         .build();
 
-    Date date = new Date();
+    LocalDateTime date = LocalDateTime.now();
     actionManager.performManual(user, counter, date);
     assertThat(counter.getValue()).isEqualTo(1);
     actionManager.performManual(user, counter, date);
@@ -46,7 +46,7 @@ public class ActionManagerTest {
         .timeoutAction(Actions.inc())
         .build();
 
-    Date date = new Date();
+    LocalDateTime date = LocalDateTime.now();
     assertThat(actionManager.performTimeout(user, counter, date)).isTrue();
     assertThat(counter.getValue()).isEqualTo(1);
     assertThat(actionManager.performTimeout(user, counter, date)).isFalse();

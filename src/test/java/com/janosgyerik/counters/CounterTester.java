@@ -1,8 +1,6 @@
 package com.janosgyerik.counters;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import static org.mockito.Mockito.mock;
 
@@ -13,7 +11,7 @@ public class CounterTester {
   private final Counter counter;
 
   // TODO should set to the start of a week, otherwise weekly actions will not work reliably
-  private Date date = new Date();
+  private LocalDateTime date = LocalDateTime.now();
 
   public CounterTester(Counter counter) {
     this.counter = counter;
@@ -37,13 +35,13 @@ public class CounterTester {
 
   public void nextDay() {
     actionManager.performTimeout(user, counter, date);
-    date.setTime(date.toInstant().plus(1, ChronoUnit.DAYS).toEpochMilli());
+    date = date.plusDays(1);
     actionManager.performPeriodic(user, counter, date);
   }
 
   public void nextWeek() {
     actionManager.performTimeout(user, counter, date);
-    date.setTime(date.toInstant().plus(7, ChronoUnit.DAYS).toEpochMilli());
+    date.plusDays(7);
     // TODO why does this have to be after? smelly, need to rethink this
     actionManager.performPeriodic(user, counter, date);
   }
