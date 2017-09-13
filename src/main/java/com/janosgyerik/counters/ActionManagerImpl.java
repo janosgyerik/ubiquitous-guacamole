@@ -25,16 +25,14 @@ public class ActionManagerImpl implements ActionManager {
   }
 
   @Override
-  public boolean performTimeout(User user, Counter counter, LocalDateTime date) {
+  public void performTimeout(User user, Counter counter, LocalDateTime date) {
     String counterId = counter.descriptor().name();
     long periodId = counter.descriptor().period().computeId(date, user.utcOffset());
     if (!events.exists(user, counterId, periodId, ActionType.MANUAL, ActionType.TIMEOUT)) {
       int valueBefore = counter.getValue();
       counter.descriptor().timeoutAction().apply(counter);
       events.add(user, counterId(counter), periodId(user, counter, date), ActionType.TIMEOUT, valueBefore);
-      return true;
     }
-    return false;
   }
 
   @Override

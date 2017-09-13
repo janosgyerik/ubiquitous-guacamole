@@ -47,9 +47,9 @@ public class ActionManagerTest {
         .build();
 
     LocalDateTime date = LocalDateTime.now();
-    assertThat(actionManager.performTimeout(user, counter, date)).isTrue();
+    actionManager.performTimeout(user, counter, date);
     assertThat(counter.getValue()).isEqualTo(1);
-    assertThat(actionManager.performTimeout(user, counter, date)).isFalse();
+    actionManager.performTimeout(user, counter, date);
     assertThat(counter.getValue()).isEqualTo(1);
 
     assertThat(eventRepo.size()).isEqualTo(1);
