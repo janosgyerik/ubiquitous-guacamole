@@ -9,13 +9,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PeriodsTest {
   @Test
-  public void should_increase_daily_period_id() {
+  public void daily_period_id_should_be_increasing() {
     LocalDateTime date = LocalDateTime.now();
     int utcOffset = 1;
     Period daily = Periods.daily(utcOffset);
     assertThat(computeId(daily, date, utcOffset)).isEqualTo(0);
     assertThat(computeId(daily, date.plusDays(1), utcOffset)).isEqualTo(1);
     assertThat(computeId(daily, date.plusDays(2), utcOffset)).isEqualTo(2);
+  }
+
+  @Test
+  public void weekly_period_id_should_be_increasing() {
+    LocalDateTime date = LocalDateTime.now();
+    int utcOffset = 1;
+    Period weekly = Periods.weekly(utcOffset);
+    assertThat(computeId(weekly, date, utcOffset)).isEqualTo(0);
+    assertThat(computeId(weekly, date.plusDays(7), utcOffset)).isEqualTo(1);
+    assertThat(computeId(weekly, date.plusDays(14), utcOffset)).isEqualTo(2);
   }
 
   private long computeId(Period period, LocalDateTime date, int utcOffset) {
