@@ -35,14 +35,17 @@ public class CounterTester {
 
   public void nextDay() {
     actionManager.performTimeout(user, counter, date);
-    date = date.plusDays(1);
     actionManager.performPeriodic(user, counter, date);
+
+    // effectively, perform the timeout and periodic actions for previous period by default
+    date = date.plusDays(1);
   }
 
   public void nextWeek() {
     actionManager.performTimeout(user, counter, date);
-    date.plusDays(7);
-    // TODO why does this have to be after? smelly, need to rethink this
     actionManager.performPeriodic(user, counter, date);
+
+    // effectively, perform the timeout and periodic actions for previous period by default
+    date = date.plusDays(7);
   }
 }
