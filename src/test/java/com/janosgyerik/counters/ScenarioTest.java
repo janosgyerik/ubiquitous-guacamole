@@ -60,7 +60,6 @@ public class ScenarioTest {
     assertThat(tester.getValue()).isEqualTo(2);
 
     tester.nextWeek();
-    // TODO
-    //assertThat(tester.getValue()).isEqualTo(0);
+    assertThat(tester.getValue()).isEqualTo(0);
   }
 }

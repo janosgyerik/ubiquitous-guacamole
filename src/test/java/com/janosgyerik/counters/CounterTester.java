@@ -1,6 +1,8 @@
 package com.janosgyerik.counters;
 
 import java.time.LocalDateTime;
+import java.util.stream.IntStream;
+import sun.awt.image.IntegerComponentRaster;
 
 import static org.mockito.Mockito.mock;
 
@@ -42,10 +44,6 @@ public class CounterTester {
   }
 
   public void nextWeek() {
-    actionManager.performTimeout(user, counter, date);
-    actionManager.performPeriodic(user, counter, date);
-
-    // effectively, perform the timeout and periodic actions for previous period by default
-    date = date.plusDays(7);
+    IntStream.range(0, 7).forEach(i -> nextDay());
   }
 }
